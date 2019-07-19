@@ -25,7 +25,7 @@ def bar_line():
         'category': pd.date_range(
             start='2018-01-02', periods=12, freq='D'
         ).map(lambda x: x.strftime('%Y-%m-%d')).to_list(),
-        'data': list(zip(return_value, emv_value))
+        'data': list(zip(emv_value, return_value))
     }
 
     return jsonify(payload)
