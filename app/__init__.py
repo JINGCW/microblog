@@ -1,17 +1,20 @@
 import logging
-from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
+from logging.handlers import SMTPHandler, RotatingFileHandler
+
+import rq
+from elasticsearch import Elasticsearch
 from flask import Flask, request, current_app
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask_babel import Babel, lazy_gettext as _l
+from flask_bootstrap import Bootstrap
+from flask_cors import CORS
 from flask_login import LoginManager
 from flask_mail import Mail
-from flask_bootstrap import Bootstrap
+from flask_migrate import Migrate
 from flask_moment import Moment
-from flask_babel import Babel, lazy_gettext as _l
-from elasticsearch import Elasticsearch
+from flask_sqlalchemy import SQLAlchemy
 from redis import Redis
-import rq
+
 from config import Config
 
 db = SQLAlchemy()
@@ -40,7 +43,7 @@ def create_app(config_class=Config):
         if app.config['ELASTICSEARCH_URL'] else None
     app.redis = Redis.from_url(app.config['REDIS_URL'])
     app.task_queue = rq.Queue('microblog-tasks', connection=app.redis)
-
+    CORS(app, supports_credentials=True)
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
@@ -54,9 +57,9 @@ def create_app(config_class=Config):
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
 
-    #add graphs
+    # add graphs blueprint
     from app.graphs import bp as graphs_bp
-    app.register_blueprint(graphs_bp,url_prefix='/graphs')
+    app.register_blueprint(graphs_bp, url_prefix='/graphs')
 
     if not app.debug and not app.testing:
         if app.config['MAIL_SERVER']:

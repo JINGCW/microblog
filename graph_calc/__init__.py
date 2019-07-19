@@ -1,1 +1,2 @@
-'''calculation functions collections'''
+"""calculation functions collections"""
+
