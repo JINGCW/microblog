@@ -15,6 +15,12 @@ class Loader(dict):
         self[key] = value
 
 
+__source_path={
+    'barline':'./src/match_large.csc'
+}
+
+print(__source_path['barline'])
+
 def _barline_loader():
     return
 

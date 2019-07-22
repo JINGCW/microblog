@@ -42,5 +42,4 @@ microblog.log*
 .env
 tmp.py
 .idea
-
-
+/graph_calc/src/
