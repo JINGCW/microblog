@@ -38,8 +38,8 @@ def bar_line():
         payload = {
             'category': frame.index.to_list(),
             'data': list(zip(frame.emv.to_list(), frame['return'].to_list())),
-            'bar': [min(frame.emv), max(frame.emv)],
-            'line': [min(frame['return']), max(frame['return'])]
+            # 'bar': [min(frame.emv), max(frame.emv)],
+            # 'line': [min(frame['return']), max(frame['return'])]
         }
 
         return jsonify(payload)
