@@ -31,7 +31,7 @@ def bar_line():
         frame = pd.DataFrame.from_dict({'return': return_value, 'emv': emv_value})
         frame.index = pd.date_range(start='2018-01-02', periods=12, freq='D'
                                     ).map(lambda x: x.strftime('%Y-%m-%d')).to_list()
-        frame['return'] *= 100
+        # frame['return'] *= 100
         frame['return'] = frame['return'].round(2)
         frame.drop_duplicates(inplace=True)
 
