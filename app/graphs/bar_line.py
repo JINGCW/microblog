@@ -45,8 +45,8 @@ def bar_line():
         frame.index = pd.date_range(start='2018-01-02', periods=12, freq='D'
                                     ).map(lambda x: x.strftime('%Y-%m-%d')).to_list()
         # frame['return'] *= 100
-        frame['return'] = frame['return'].round(2)
-        frame['volatility'] = frame['volatility'].round(2)
+        frame['return'] = frame['return'].round(4)
+        frame['volatility'] = frame['volatility'].round(4)
         frame.drop_duplicates(inplace=True)
 
         payload = {
